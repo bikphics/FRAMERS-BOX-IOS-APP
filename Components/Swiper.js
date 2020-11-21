@@ -1,8 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Swiper from 'react-native-swiper';
-
+import axios from 'axios';
 const Component = () => {
+  const [image, setImage] = useState([]);
+
+  useEffect(() => {
+    getImages();
+  }, []);
+
+  const getImages = async () => {
+    const res = await axios.get('https://dotwork.in/api/getbanners');
+
+    if (res.status === 200) {
+      setImage(res.data.data);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Swiper
@@ -21,7 +35,15 @@ const Component = () => {
           backgroundColor: '#fff',
           activeDotColor: '#FFF',
         }}>
-        <View style={styles.slide}>
+        {image.map((img) => {
+          let imgUrl = {uri: `http://dotwork.in/${img.image}`};
+          return (
+            <View style={styles.slide} key={img.id}>
+              <Image source={imgUrl} style={{width: 390, height: 220}} />
+            </View>
+          );
+        })}
+        {/* <View style={styles.slide}>
           <Image
             source={require('../image/slide1.png')}
             style={{width: 360, height: 220}}
@@ -38,7 +60,7 @@ const Component = () => {
             source={require('../image/slide3.png')}
             style={{width: 360, height: 220}}
           />
-        </View>
+        </View> */}
       </Swiper>
     </View>
   );

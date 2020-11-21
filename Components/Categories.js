@@ -1,8 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import axios from 'axios';
 
 const Categories = () => {
+  const [allCategories, setAllCategories] = useState([]);
+
+  useEffect(() => {
+    getCatagories();
+  }, []);
+
+  const getCatagories = async () => {
+    const res = await axios.get('https://dotwork.in/api/allcategories');
+
+    if (res.status === 200) {
+      setAllCategories(res.data.data);
+    }
+  };
+
   return (
     <>
       <View style={styles.container}>{/* <Text>Categories</Text> */}</View>
@@ -11,7 +26,24 @@ const Categories = () => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
         <View style={styles.categoryList}>
-          <TouchableOpacity>
+          {allCategories.map((category) => {
+            let imgUrl = {uri: `http://dotwork.in/${category.image}`};
+            return (
+              <TouchableOpacity key={category.categories_id}>
+                <View style={styles.categoryItem}>
+                  <Image style={styles.CategoryImage} source={imgUrl} />
+                  <Text style={styles.categoryText}>
+                    {category.categories_name}
+                  </Text>
+                  <Text style={styles.totalProduct}>
+                    {category.total_products} products
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+
+          {/* <TouchableOpacity>
             <View style={styles.categoryItem}>
               <Image
                 style={styles.CategoryImage}
@@ -64,7 +96,7 @@ const Categories = () => {
               />
               <Text style={styles.categoryText}>Cleaners</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
     </>
@@ -98,11 +130,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   CategoryImage: {
-    height: 100,
-    width: 100,
+    height: 80,
+    width: 80,
+    borderRadius: 50,
   },
   categoryText: {
     padding: 10,
+    fontSize: 17,
     fontWeight: '800',
+  },
+  totalProduct: {
+    fontSize: 13,
+    color: 'red',
   },
 });
