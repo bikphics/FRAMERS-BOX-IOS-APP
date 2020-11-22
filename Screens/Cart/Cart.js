@@ -1,18 +1,13 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, Image} from 'react-native';
-import {Appbar, Button, Card, Subheading} from 'react-native-paper';
+import {ScrollView, View, Image} from 'react-native';
+import {Button, Card, Subheading} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
-const Cart = () => {
+import Header from '../../Components/Header';
+import {COLOR} from '../../Config/AppConfig';
+const Cart = (props) => {
   return (
-    <View>
-      <Appbar.Header>
-        <Appbar.Action
-          icon={() => <Icon name="arrow-back" color="#fff" size={24} />}
-          onPress={() => {}}
-        />
-        <Appbar.Content title="My Cart" />
-        <Appbar.Action icon="magnify" onPress={() => {}} />
-      </Appbar.Header>
+    <>
+      <Header title="Cart" navigation={props.navigation} cartHidden={true} />
       <ScrollView style={{padding: 10, height: '100%'}}>
         <Card>
           <Card.Title title="Brown Onion" subtitle="Vegetables" />
@@ -46,11 +41,11 @@ const Cart = () => {
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}>
-                    <Button>
+                    <Button onPress={() => {}} color={COLOR.PRIMARY}>
                       <Icon size={16} name="caret-back-outline" />{' '}
                     </Button>
-                    <Button>1</Button>
-                    <Button>
+                    <Button color={COLOR.PRIMARY}>1</Button>
+                    <Button onPress={() => {}} color={COLOR.PRIMARY}>
                       <Icon size={16} name="caret-forward-outline" />{' '}
                     </Button>
                   </View>
@@ -63,15 +58,17 @@ const Cart = () => {
           </Card.Content>
           <Card.Actions
             style={{borderTopColor: '#00000033', borderTopWidth: 1}}>
-            <Button mode="contained">View</Button>
-            <Button color="grey">Remove</Button>
+            <Button onPress={() => {}} color={COLOR.PRIMARY} mode="contained">
+              View
+            </Button>
+            <Button onPress={() => {}} color="grey">
+              Remove
+            </Button>
           </Card.Actions>
         </Card>
       </ScrollView>
-    </View>
+    </>
   );
 };
 
 export default Cart;
-
-const styles = StyleSheet.create({});

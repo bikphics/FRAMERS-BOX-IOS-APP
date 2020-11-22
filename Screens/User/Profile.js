@@ -1,9 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {Button} from 'react-native-paper';
+import Header from '../../Components/Header';
+import {COLOR} from '../../Config/AppConfig';
 
-const Profile = () => {
+const Profile = (props) => {
   return (
-    <View style={styles.container}>
+    <>
+      <Header title="Profile" navigation={props.navigation} />
       <View style={styles.header}></View>
       <Image
         style={styles.avatar}
@@ -17,16 +21,23 @@ const Profile = () => {
             Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum
             electram expetendis, omittam deseruisse consequuntur ius an,
           </Text>
-
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text>Edit details</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text>Order History</Text>
-          </TouchableOpacity>
+          <Button
+            mode="contained"
+            color={COLOR.PRIMARY}
+            onPress={() => props.navigation.navigate('LogInScreen')}
+            style={styles.buttonContainer}>
+            Login
+          </Button>
+          <Button
+            mode="contained"
+            color={COLOR.PRIMARY}
+            onPress={() => props.navigation.navigate('SIgnUpScreen')}
+            style={styles.buttonContainer}>
+            Register Now
+          </Button>
         </View>
       </View>
-    </View>
+    </>
   );
 };
 
@@ -34,7 +45,7 @@ export default Profile;
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#178c56',
-    height: 200,
+    height: 100,
   },
   avatar: {
     width: 130,
@@ -45,7 +56,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'center',
     position: 'absolute',
-    marginTop: 130,
+    marginTop: 80,
   },
   name: {
     fontSize: 22,
@@ -77,14 +88,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   buttonContainer: {
-    marginTop: 10,
-    height: 45,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
+    marginVertical: 15,
     width: 250,
+    minHeight: 38,
     borderRadius: 30,
-    backgroundColor: '#178c56',
   },
 });

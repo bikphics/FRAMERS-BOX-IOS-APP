@@ -1,13 +1,12 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import Categories from '../../Components/Categories';
 import Header from '../../Components/Header';
 
-const Favourite = () => {
+const Favourite = (props) => {
   return (
     <View>
-      <Header />
+      <Header title="Favorites" navigation={props.navigation} />
       <Categories />
     </View>
   );

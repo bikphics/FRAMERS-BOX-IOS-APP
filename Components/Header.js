@@ -1,51 +1,25 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Appbar} from 'react-native-paper';
+import {COLOR} from '../Config/AppConfig';
 
-const Header = ({navigation}) => {
+const Header = (props) => {
   return (
-    <View style={styles.header}>
-      <View>
-        <Text style={styles.logo}>Dot Work</Text>
-      </View>
-      <View style={styles.headerIcon}>
-        <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
-          <View style={styles.iconContainer}>
-            <Image source={require('../image/cart.png')} />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={styles.iconContainer}>
-            <Image source={require('../image/search.png')} />
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <>
+      <Appbar.Header style={{backgroundColor: COLOR.PRIMARY}}>
+        <Appbar.Content title={props.title} />
+        {!props.cartHidden && (
+          <Appbar.Action
+            icon="cart"
+            onPress={() => props.navigation.navigate('ProductDetail')}
+          />
+        )}
+        <Appbar.Action
+          icon="magnify"
+          onPress={() => props.navigation.navigate('ProductDetail')}
+        />
+      </Appbar.Header>
+    </>
   );
 };
 
 export default Header;
-
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: '#178c56',
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 55,
-    padding: 5,
-  },
-  headerIcon: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  iconContainer: {
-    padding: 10,
-  },
-  logo: {
-    fontWeight: '800',
-    fontSize: 25,
-    color: 'white',
-  },
-});
